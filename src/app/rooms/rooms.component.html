@@ -1,0 +1,43 @@
+<!-- interpolation syntax -->
+<!-- <h1>Welcome to {{hotelName}} </h1> -->
+
+<hinv-header [title]="title"></hinv-header>
+
+<!-- built in directive (*ngStyle) -->
+<div [hidden]="hideRooms">
+    Number of Rooms:
+    <div [ngStyle]="{'color': rooms.availableRooms ? 'red' : 'green'}"
+        [innerText]="numberOfRooms"></div>
+</div>
+
+{{ rooms.availableRooms }}
+
+
+<!-- json pipe. It should only be used for debugging purposes.-->
+<!-- {{roomList | json}} -->
+
+<div *ngIf="selectedRoom">
+{{selectedRoom | json}}
+</div>
+
+<div>
+    <button (click)="addRoom()">Add Room</button>
+</div>
+
+<!-- built in directive (*ngIf) -->
+<!-- optional chaining -the question mark makes it optional chaining -->
+<div *ngIf="rooms.availableRooms > 0">
+    <!-- data is coming from rooms-list.component.ts  -->
+    <!-- $event is added to the selectRoom method to pass the selected room to the parent component -->
+    <!-- below is how to connect input property how to connect output property -->
+    <hinv-rooms-list [rooms]="roomList" [title]="title"
+    (selectedRoom)="selectRoom($event)"></hinv-rooms-list>
+
+</div>
+
+<!-- property binding syntax -->
+<!-- Number of Rooms
+<div [innerText]="numberOfRooms"></div> -->
+
+<!-- event binding syntax -->
+<button (click)="toggle()">Toggle</button>

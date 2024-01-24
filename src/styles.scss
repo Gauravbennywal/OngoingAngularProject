@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+// @import '../node_modules/bootstrap/scss/bootstrap'
+
+.even td{
+
+    background-color: steelblue !important;
+    color: white !important;
+}
+
+.odd td{
+    background-color: lightsteelblue !important;
+    color: black !important;
+}
