@@ -1,6 +1,20 @@
 <h1>Hello World!</h1>
 <!-- <hinv-rooms></hinv-rooms> -->
 
+<!--* content projection -->
+<!-- linked to container.component.html -->
+<hinv-container>
+    <hinv-rooms></hinv-rooms>
+    <hinv-employee></hinv-employee>
+    <h1>This is from ng-content</h1>
+</hinv-container>
+
+<!-- template reference variable -->
+<div #name>
+
+</div>
+
+
 <!-- built in directive (*ngSwitch) -->
 <!-- <div [ngSwitch]="role">
     <div *ngSwitchCase="'Admin'">Admin</div>
@@ -9,8 +23,10 @@
 </div> -->
 
 
-<div>
+<!-- #user is known as template reference variable -->
+<!-- once you have a template reference variable, you can use it to access the element or directive in your template. -->
+<!-- <div>
     <ng-template #user></ng-template>
-</div>
+</div> -->
 
 

@@ -6,6 +6,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
@@ -19,7 +20,7 @@ import { RoomList } from '../room';
   //* OnPush can only be used if the component is not modifying any data internally
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RoomsListComponent implements OnInit, OnChanges {
+export class RoomsListComponent implements OnInit, OnChanges, OnDestroy {
   // @Input is a decorator that allows us to pass data from a parent component to a child component
   // property "rooms" becomes a property on top of 'hinv-rooms-list'
   // anyone can pass the data by using this property to this particular component
@@ -49,4 +50,12 @@ export class RoomsListComponent implements OnInit, OnChanges {
   selectRoom(room: RoomList) {
     this.selectedRoom.emit(room);
   }
+
+
+  //* whenever a component is removed from DOM this method is called to clean up
+  ngOnDestroy(): void {
+    console.log('ngOnDestroy called');
+}
+
+
 }

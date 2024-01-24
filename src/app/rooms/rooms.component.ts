@@ -1,4 +1,15 @@
-import { Component, DoCheck, OnInit, ViewChild, AfterViewInit, AfterViewChecked, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  DoCheck,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  AfterViewChecked,
+  SimpleChanges,
+  ViewChildren,
+  QueryList,
+  OnDestroy,
+} from '@angular/core';
 import { Room, RoomList } from './room';
 import { HeaderComponent } from '../header/header.component';
 
@@ -8,7 +19,9 @@ import { HeaderComponent } from '../header/header.component';
   styleUrl: './rooms.component.scss',
 })
 // interface for lifecycle hook (ngOnInit)
-export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterViewChecked {
+export class RoomsComponent
+  implements OnInit, DoCheck, AfterViewInit, AfterViewChecked
+{
   // Used for interpolation binding
   hotelName = 'Hilton Hotel';
   // Used for property binding
@@ -28,22 +41,24 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
 
   title = 'Rooms List';
 
-
   roomList: RoomList[] = [];
 
   //* Using View Child we have created a new instance of HeaderComponent
   //* any method or property can be accessed from this component
-  //! asynchronous code? static: true? 
-  @ViewChild(HeaderComponent 
+  //! asynchronous code? static: true?
+  @ViewChild(
+    HeaderComponent
     //,{static: true}
-    ) headerComponent!: HeaderComponent;
+  )
+  headerComponent!: HeaderComponent;
+
+  @ViewChildren(HeaderComponent)
+  headerChildrenComponent!: QueryList<HeaderComponent>;
 
   constructor() {}
 
-
   //* Lifecycle Hook (ngOnInit)
   ngOnInit(): void {
-
     //console.log(this.headerComponent);
     this.roomList = [
       {
@@ -83,30 +98,33 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
   }
 
   //* try to avoid because is costly. (ngDoCheck) catches all changes.
-ngDoCheck(){
-  console.log('ngDoCheck called');
-}
+  ngDoCheck() {
+    console.log('ngDoCheck called');
+  }
 
-ngAfterViewInit(): void {
-  console.log('ngAfterViewInit called');
-  // this.headerComponent.title = 'Rooms View';
-}
+  ngAfterViewInit(): void {
+    console.log('ngAfterViewInit called');
+    this.headerComponent.title = 'Rooms View';
+    //! the line below doesn't work because the view is not initialized yet
+    //! how do i initialize the view?
+    this.headerChildrenComponent.last.title = "Last Title";
+    
+  }
 
-ngAfterViewChecked() {
-  console.log('ngAfterViewChecked called');
-  this.headerComponent.title = 'Rooms View';
-}
+  ngAfterViewChecked() {
+    console.log('ngAfterViewChecked called');
+    this.headerComponent.title = 'Rooms View';
+  }
 
-ngOnChanges(changes: SimpleChanges): void {
-  console.log(changes);
-  console.log('ngOnChanges called in Parent');
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    console.log('ngOnChanges called in Parent');
   }
 
   //Used for event binding
   toggle() {
     this.hideRooms = !this.hideRooms;
-    this.title = "Rooms List";
-    
+    this.title = 'Rooms List';
   }
 
   selectRoom(room: RoomList) {
@@ -133,4 +151,5 @@ ngOnChanges(changes: SimpleChanges): void {
     // the code below will make the roomList array immutable
     this.roomList = [...this.roomList, room];
   }
+  
 }

@@ -26,7 +26,7 @@
 
 <!-- built in directive (*ngIf) -->
 <!-- optional chaining -the question mark makes it optional chaining -->
-<div *ngIf="rooms.availableRooms > 0">
+<div *ngIf="hideRooms">
     <!-- data is coming from rooms-list.component.ts  -->
     <!-- $event is added to the selectRoom method to pass the selected room to the parent component -->
     <!-- below is how to connect input property how to connect output property -->
